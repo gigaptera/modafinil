@@ -36,6 +36,12 @@ After a production build, follow the printed notarization commands.
 
 ## Install
 
-Download `Modafinil-1.0.dmg`, open it, and drag Modafinil to Applications.
+**[gigaptera.com/modafinil](https://gigaptera.com/modafinil)** からダウンロードできます。
 
-On first launch, if macOS warns about the developer: **System Settings → Privacy & Security → Open Anyway**.
+または GitHub Releases から直接取得:
+
+```
+https://github.com/gigaptera/modafinil/releases/latest/download/Modafinil-1.0.dmg
+```
+
+DMGを開いて Modafinil を Applications にドラッグしてください。Apple公証済みのため「開発元不明」の警告は出ません。
