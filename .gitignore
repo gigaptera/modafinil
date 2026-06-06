@@ -1,0 +1,8 @@
+DerivedData/
+Build/
+*.xcuserstate
+xcuserdata/
+.DS_Store
+dmg-assets/dmg-bg.png
+dmg-assets/dmg-bg@2x.png
+dmg-assets/dmg-bg.tiff
