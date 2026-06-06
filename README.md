@@ -2,7 +2,7 @@
 
 macOS menu bar app that prevents your Mac from sleeping — built for AI agent workflows that need to keep running with the lid closed.
 
-![Modafinil icon](modafinil-icon.png)
+![Modafinil](modafinil-lp.png)
 
 ## How it works
 
