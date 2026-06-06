@@ -1,25 +1,34 @@
-# Modafinil
-
-macOS menu bar app that prevents your Mac from sleeping — built for AI agent workflows that need to keep running with the lid closed.
-
 ![Modafinil](modafinil-lp.png)
 
-## How it works
+# Modafinil
 
-- **Left-click** the menu bar icon to toggle sleep prevention on/off
-- The pill icon breaks apart when active, becomes whole when inactive
-- **Right-click** to set a duration timer or manage settings
+Keep your Mac awake while AI agents run. A minimal macOS menu bar app — left-click the pill icon to toggle, right-click to configure.
+
+[![Download](https://img.shields.io/badge/Download-v1.0-0099FF?style=flat-square)](https://gigaptera.com/modafinil)
+[![macOS](https://img.shields.io/badge/macOS-14.0%2B-lightgrey?style=flat-square&logo=apple)](https://gigaptera.com/modafinil)
+[![License](https://img.shields.io/badge/License-Free-brightgreen?style=flat-square)](https://gigaptera.com/modafinil)
+
+---
+
+## Download
+
+**[gigaptera.com/modafinil](https://gigaptera.com/modafinil)**
+
+Or directly from [GitHub Releases](https://github.com/gigaptera/modafinil/releases/latest).
+Open the DMG and drag Modafinil to Applications. Apple-notarized — no security warnings.
 
 ## Features
 
-- Prevents system sleep via `IOPMAssertionCreateWithName("PreventSystemSleep")`
-- Auto-stop timer: 1h / 2h / 4h / unlimited
-- Launch at login
-- No Dock icon — lives entirely in the menu bar
+| | |
+|---|---|
+| **Left-click toggle** | The pill icon breaks apart when active |
+| **Auto-stop timer** | 1h / 2h / 4h / unlimited |
+| **Launch at login** | Configure from the right-click menu |
+| **No Dock icon** | Lives only in the menu bar |
 
 ## Requirements
 
-- macOS 14.0+
+- macOS 14.0 Sonoma or later
 - Apple Silicon or Intel
 
 ## Build
@@ -32,16 +41,10 @@ macOS menu bar app that prevents your Mac from sleeping — built for AI agent w
 PROD=1 ./build.sh
 ```
 
-After a production build, follow the printed notarization commands.
+## How it works
 
-## Install
+Uses `IOPMAssertionCreateWithName("PreventSystemSleep")` to prevent system sleep for the selected duration. The assertion is released immediately on deactivation or when the timer fires.
 
-**[gigaptera.com/modafinil](https://gigaptera.com/modafinil)** からダウンロードできます。
+---
 
-または GitHub Releases から直接取得:
-
-```
-https://github.com/gigaptera/modafinil/releases/latest/download/Modafinil-1.0.dmg
-```
-
-DMGを開いて Modafinil を Applications にドラッグしてください。Apple公証済みのため「開発元不明」の警告は出ません。
+Made by [Gigaptera](https://gigaptera.com) · Kobe, Japan
