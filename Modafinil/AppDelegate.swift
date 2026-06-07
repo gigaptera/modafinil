@@ -37,11 +37,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             if let rem = preventer.remainingTime {
                 let h = Int(rem) / 3600
                 let m = Int(rem) % 3600 / 60
-                let item = NSMenuItem(title: h > 0 ? "残り \(h)時間\(m)分" : "残り \(m)分", action: nil, keyEquivalent: "")
+                let title = h > 0
+                    ? L.string("remaining_hm", h, m)
+                    : L.string("remaining_m", m)
+                let item = NSMenuItem(title: title, action: nil, keyEquivalent: "")
                 item.isEnabled = false
                 menu.addItem(item)
             }
-            menu.addItem(NSMenuItem(title: "停止", action: #selector(stop), keyEquivalent: ""))
+            menu.addItem(NSMenuItem(title: L.string("stop"), action: #selector(stop), keyEquivalent: ""))
             menu.addItem(.separator())
         }
 
@@ -55,12 +58,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         menu.addItem(.separator())
 
-        let loginItem = NSMenuItem(title: "ログイン時に起動", action: #selector(toggleLogin), keyEquivalent: "")
+        let loginItem = NSMenuItem(title: L.string("launch_at_login"), action: #selector(toggleLogin), keyEquivalent: "")
         loginItem.state = SMAppService.mainApp.status == .enabled ? .on : .off
         menu.addItem(loginItem)
 
         menu.addItem(.separator())
-        menu.addItem(NSMenuItem(title: "Modafinil を終了", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+        menu.addItem(NSMenuItem(title: L.string("quit"), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
 
         menu.popUp(positioning: nil, at: NSPoint(x: 0, y: sender.bounds.height + 4), in: sender)
     }
@@ -90,5 +93,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func updateIcon() {
         statusItem?.button?.image = preventer.isActive ? .pillOn : .pillOff
+    }
+
+    // Ensure caffeinate + assertions are released if user quits while active
+    func applicationWillTerminate(_ notification: Notification) {
+        if preventer.isActive {
+            preventer.deactivate()
+        }
     }
 }

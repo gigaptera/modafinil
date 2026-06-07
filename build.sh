@@ -14,7 +14,7 @@ set -e
 
 MODE="personal"
 SIGNING_IDENTITY=""
-VERSION="1.0"
+VERSION="1.1"
 APP_NAME="Modafinil"
 DMG_NAME="${APP_NAME}-${VERSION}.dmg"
 
