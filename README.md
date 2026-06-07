@@ -4,7 +4,7 @@
 
 Keep your Mac awake while AI agents run. A minimal macOS menu bar app — left-click the pill icon to toggle, right-click to configure.
 
-[![Download](https://img.shields.io/badge/Download-v1.1-0099FF?style=flat-square)](https://gigaptera.com/modafinil)
+[![Download](https://img.shields.io/badge/Download-v1.2.0-0099FF?style=flat-square)](https://gigaptera.com/modafinil)
 [![macOS](https://img.shields.io/badge/macOS-14.0%2B-lightgrey?style=flat-square&logo=apple)](https://gigaptera.com/modafinil)
 [![License](https://img.shields.io/badge/License-Free-brightgreen?style=flat-square)](https://gigaptera.com/modafinil)
 
@@ -27,6 +27,10 @@ Open the DMG and drag Modafinil to Applications. Apple-notarized — no security
 | **No Dock icon** | Lives only in the menu bar |
 
 ## Changelog
+
+### v1.2.0
+- Fixed Japanese localization detection: now properly falls back to Japanese strings only when the system language is set to Japanese (using `Locale.preferredLanguages` for reliable detection even in accessory apps without `.lproj` resources).
+- Bumped to 1.2.0 with the above fix.
 
 ### v1.1
 - Added 30-minute option to the timer

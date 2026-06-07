@@ -5,8 +5,9 @@ import IOKit.pwr_mgt
 /// English is default. Japanese strings are used *only* when system locale is Japanese (ja).
 enum L {
     static func string(_ key: String, _ args: CVarArg...) -> String {
-        let lang = Locale.current.language.languageCode?.identifier ?? "en"
-        let useJapanese = lang.hasPrefix("ja")
+        // Respect the user's preferred languages from System Settings.
+        // This works even for apps without .lproj resources (unlike Locale.current in some cases).
+        let useJapanese = Locale.preferredLanguages.first?.hasPrefix("ja") ?? false
 
         let strings = useJapanese ? ja : en
         guard let format = strings[key] else {
