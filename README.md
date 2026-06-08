@@ -4,7 +4,7 @@
 
 Keep your Mac awake while AI agents run. A minimal macOS menu bar app — left-click the pill icon to toggle, right-click to configure.
 
-[![Download](https://img.shields.io/badge/Download-v1.2.0-0099FF?style=flat-square)](https://gigaptera.com/modafinil)
+[![Download](https://img.shields.io/badge/Download-v1.2.1-0099FF?style=flat-square)](https://gigaptera.com/modafinil)
 [![macOS](https://img.shields.io/badge/macOS-14.0%2B-lightgrey?style=flat-square&logo=apple)](https://gigaptera.com/modafinil)
 [![License](https://img.shields.io/badge/License-Free-brightgreen?style=flat-square)](https://gigaptera.com/modafinil)
 
@@ -24,9 +24,14 @@ Open the DMG and drag Modafinil to Applications. Apple-notarized — no security
 | **Left-click toggle** | The pill icon breaks apart when active |
 | **Auto-stop timer** | 30 min / 1 hour / 2 hours / 4 hours / Unlimited (localized: Japanese only when system language is Japanese) |
 | **Launch at login** | Configure from the right-click menu |
+| **Lid-closed mode** | Optional privileged helper keeps a standalone MacBook awake with the lid shut (clamshell), via `pmset disablesleep` |
 | **No Dock icon** | Lives only in the menu bar |
 
 ## Changelog
+
+### v1.2.1
+- **Reliable lid-closed (clamshell) mode** via an optional privileged helper. Enable it once from the right-click menu (a one-time approval in System Settings → Login Items). A root `LaunchDaemon` then toggles `pmset disablesleep` — the only mechanism that actually keeps a standalone MacBook awake with the lid shut. Replaces the previous best-effort `caffeinate` approach.
+- The helper auto-reverts `disablesleep` whenever sleep prevention stops, or if Modafinil quits or crashes, so a lidded Mac never gets stuck awake.
 
 ### v1.2.0
 - Fixed Japanese localization detection: now properly falls back to Japanese strings only when the system language is set to Japanese (using `Locale.preferredLanguages` for reliable detection even in accessory apps without `.lproj` resources).
@@ -55,43 +60,30 @@ PROD=1 ./build.sh
 
 ## How it works
 
-Uses three IOPM assertions:
+While active, Modafinil holds three IOPM assertions:
 - `PreventSystemSleep`
 - `PreventUserIdleSystemSleep`
-- `PreventUserIdleDisplaySleep` (to block auto-lock on lid close)
+- `PreventUserIdleDisplaySleep` (blocks the display-sleep timer that triggers auto-lock)
 
-plus a `caffeinate -d -i -s -u` child process. All released on deactivate.
+These keep the Mac awake while the lid is open, and are released on deactivate. They do **not** override clamshell sleep — for the lid-closed case, see below.
 
-## Lid closed / Clamshell mode (Amphetamine parity)
+## Lid-closed / Clamshell mode
 
-Modafinil is intended as a minimal generic of Amphetamine for keeping AI agents (or other long-running tasks) awake, including the common "MacBook alone with lid closed" scenario.
+Closing the lid on a MacBook with no external display always sleeps it. IOPM assertions and `caffeinate` cannot override this — the only thing that does is the system-wide `SleepDisabled` flag (`pmset -a disablesleep 1`), which requires root.
 
-**When you activate Modafinil, it does two things:**
+Modafinil ships an optional privileged helper (a root `LaunchDaemon`) to toggle that flag:
 
-- Holds `PreventSystemSleep` + `PreventUserIdleSystemSleep` assertions.
-- Launches `caffeinate -d -i -s -u` (or with `-t` for timed) as a child process.  
-  We **intentionally include `-d`** (prevent display sleep). This stops the display sleep timer that normally leads to automatic screen lock.  
-  Goal: lid closed on a standalone MacBook → system stays awake **and does not lock**, so you can open the lid and continue immediately. This is the common pattern when running long AI agents / background work on a personal machine.
+1. Right-click the menu bar icon → **Keep awake with lid closed…**
+2. Approve the background item once in **System Settings → General → Login Items**. macOS requires this — it cannot be enabled programmatically — but the approval persists across reboots.
+3. With lid-closed mode on, activating sleep prevention also sets `disablesleep`. Close the lid and the Mac stays awake.
 
-**For best results with lid closed (even MacBook single unit, no external display):**
+The helper automatically clears `disablesleep` when prevention stops, or if Modafinil quits or crashes — so a lidded Mac never gets stuck awake.
 
-1. Plug in the power adapter (strongly recommended; on battery the OS is more aggressive about sleeping).
-2. Click the pill to activate (unlimited recommended for long agent runs).
-3. Close the lid.
+### Caveats
 
-The right-click menu is kept minimal (original simple design).
-
-### Important caveats for single MacBook lid-closed use (no sleep + no lock)
-
-- macOS is designed to sleep (and often lock) when the lid is closed with no external display.
-- We use both IOPM assertions + `caffeinate -d -i -s -u` to fight both sleep and the lock path.
-- It works for many people running AI agents / long tasks, but it is **not guaranteed** on all hardware/macOS versions.
-- **Security note**: Because we prevent the lock, opening the lid will usually resume your session without a password prompt. Only use this on machines you trust (your personal dev laptop, not a shared or travel machine).
-- The Mac can get warm / fans spin. Keep it on a hard surface with good airflow. Never use inside a bag.
-- AC power is strongly recommended. On battery the OS fights harder.
-- If it still sleeps or locks, toggle the pill off → close lid → toggle on again.
-
-The right-click menu is kept minimal.
+- **Security**: preventing sleep this way also prevents the lock screen — opening the lid resumes your session without a password prompt. Use only on machines you trust (your personal dev laptop, not a shared or travel machine).
+- The Mac can run warm with the lid closed. Keep it on a hard surface with good airflow; never inside a bag.
+- AC power is recommended for long runs; on battery the OS fights harder to sleep.
 
 ---
 

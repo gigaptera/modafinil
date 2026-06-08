@@ -7,22 +7,72 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19CBC911A78D21364410D414 /* HelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52044ECF9693B03CBCF815E8 /* HelperProtocol.swift */; };
+		43AEB399FA61AE1678F90FD3 /* HelperManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A57ACFC1C99A75D0842DCD /* HelperManager.swift */; };
+		751B99C2CD3C994512CC921E /* com.gigaptera.modafinil.helper.plist in Embed Launch Daemon */ = {isa = PBXBuildFile; fileRef = 08C69C3C7D2BC51F9350BB71 /* com.gigaptera.modafinil.helper.plist */; };
+		7A00D347469E7347AF8A983D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0033BD74FB403FBE930D3218 /* Cocoa.framework */; };
 		A1000001 /* ModafinilApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000001 /* ModafinilApp.swift */; };
 		A1000002 /* SleepPreventer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000002 /* SleepPreventer.swift */; };
 		A1000003 /* PillMenuBarIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000003 /* PillMenuBarIcon.swift */; };
 		A1000005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1000005 /* Assets.xcassets */; };
 		A1000006 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000008 /* AppDelegate.swift */; };
+		CFADE3803F000DCD71C22A47 /* HelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52044ECF9693B03CBCF815E8 /* HelperProtocol.swift */; };
+		D0A632E1B2AA9B1432002166 /* ModafinilHelper in Embed Helper Executable */ = {isa = PBXBuildFile; fileRef = 5C22BDD9790917D8915A9836 /* ModafinilHelper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		D5C75E41AD65F2776C6FB9ED /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857AA196E05DDB1B6DDCC4D6 /* main.swift */; };
+		F5454E24250F1AC390F08045 /* HelperTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8C92422361B3A922E220E1 /* HelperTool.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		E335FA2D64EF6B45F5D9C194 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2DCE6382540604C4917B58DB;
+			remoteInfo = ModafinilHelper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3F77657E9C7A71FC2F946F12 /* Embed Launch Daemon */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LaunchDaemons;
+			dstSubfolderSpec = 1;
+			files = (
+				751B99C2CD3C994512CC921E /* com.gigaptera.modafinil.helper.plist in Embed Launch Daemon */,
+			);
+			name = "Embed Launch Daemon";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FEBB2012F65DB54352EE83AC /* Embed Helper Executable */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				D0A632E1B2AA9B1432002166 /* ModafinilHelper in Embed Helper Executable */,
+			);
+			name = "Embed Helper Executable";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		0033BD74FB403FBE930D3218 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		08C69C3C7D2BC51F9350BB71 /* com.gigaptera.modafinil.helper.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = com.gigaptera.modafinil.helper.plist; sourceTree = "<group>"; };
+		52044ECF9693B03CBCF815E8 /* HelperProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HelperProtocol.swift; sourceTree = "<group>"; };
+		5C22BDD9790917D8915A9836 /* ModafinilHelper */ = {isa = PBXFileReference; includeInIndex = 0; path = ModafinilHelper; sourceTree = BUILT_PRODUCTS_DIR; };
+		857AA196E05DDB1B6DDCC4D6 /* main.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		A5A57ACFC1C99A75D0842DCD /* HelperManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HelperManager.swift; sourceTree = "<group>"; };
 		B1000000 /* Modafinil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Modafinil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1000001 /* ModafinilApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModafinilApp.swift; sourceTree = "<group>"; };
 		B1000002 /* SleepPreventer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepPreventer.swift; sourceTree = "<group>"; };
 		B1000003 /* PillMenuBarIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillMenuBarIcon.swift; sourceTree = "<group>"; };
 		B1000005 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B1000008 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1000006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1000007 /* Modafinil.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Modafinil.entitlements; sourceTree = "<group>"; };
+		B1000008 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DA8C92422361B3A922E220E1 /* HelperTool.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HelperTool.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,14 +83,50 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E7E560CF486FBFB2664C7FC1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A00D347469E7347AF8A983D /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04CF6F879C3BF73846F6726C /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				0033BD74FB403FBE930D3218 /* Cocoa.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		53693CA9C8180FF898955A1F /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				52044ECF9693B03CBCF815E8 /* HelperProtocol.swift */,
+			);
+			name = Shared;
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		CBF4DC46D07164D488C8AFF8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				04CF6F879C3BF73846F6726C /* OS X */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D1000000 = {
 			isa = PBXGroup;
 			children = (
 				D1000001 /* Modafinil */,
 				D1000002 /* Products */,
+				53693CA9C8180FF898955A1F /* Shared */,
+				FE263B22EC090F59D087873E /* Helper */,
+				CBF4DC46D07164D488C8AFF8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,6 +140,7 @@
 				B1000005 /* Assets.xcassets */,
 				B1000006 /* Info.plist */,
 				B1000007 /* Modafinil.entitlements */,
+				A5A57ACFC1C99A75D0842DCD /* HelperManager.swift */,
 			);
 			path = Modafinil;
 			sourceTree = "<group>";
@@ -62,13 +149,41 @@
 			isa = PBXGroup;
 			children = (
 				B1000000 /* Modafinil.app */,
+				5C22BDD9790917D8915A9836 /* ModafinilHelper */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		FE263B22EC090F59D087873E /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				857AA196E05DDB1B6DDCC4D6 /* main.swift */,
+				DA8C92422361B3A922E220E1 /* HelperTool.swift */,
+				08C69C3C7D2BC51F9350BB71 /* com.gigaptera.modafinil.helper.plist */,
+			);
+			name = Helper;
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2DCE6382540604C4917B58DB /* ModafinilHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 937CB4EF4BD0DE84223BFFCF /* Build configuration list for PBXNativeTarget "ModafinilHelper" */;
+			buildPhases = (
+				5B1D73F38E32BB3CBC0D732C /* Sources */,
+				E7E560CF486FBFB2664C7FC1 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ModafinilHelper;
+			productName = ModafinilHelper;
+			productReference = 5C22BDD9790917D8915A9836 /* ModafinilHelper */;
+			productType = "com.apple.product-type.tool";
+		};
 		E1000001 /* Modafinil */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1000001 /* Build configuration list for PBXNativeTarget "Modafinil" */;
@@ -76,10 +191,13 @@
 				E1000002 /* Sources */,
 				C1000001 /* Frameworks */,
 				E1000003 /* Resources */,
+				FEBB2012F65DB54352EE83AC /* Embed Helper Executable */,
+				3F77657E9C7A71FC2F946F12 /* Embed Launch Daemon */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				45FF34D97519B39A94CCC871 /* PBXTargetDependency */,
 			);
 			name = Modafinil;
 			productName = Modafinil;
@@ -115,6 +233,7 @@
 			projectRoot = "";
 			targets = (
 				E1000001 /* Modafinil */,
+				2DCE6382540604C4917B58DB /* ModafinilHelper */,
 			);
 		};
 /* End PBXProject section */
@@ -131,6 +250,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5B1D73F38E32BB3CBC0D732C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5C75E41AD65F2776C6FB9ED /* main.swift in Sources */,
+				F5454E24250F1AC390F08045 /* HelperTool.swift in Sources */,
+				CFADE3803F000DCD71C22A47 /* HelperProtocol.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E1000002 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -139,12 +268,63 @@
 				A1000006 /* AppDelegate.swift in Sources */,
 				A1000002 /* SleepPreventer.swift in Sources */,
 				A1000003 /* PillMenuBarIcon.swift in Sources */,
+				43AEB399FA61AE1678F90FD3 /* HelperManager.swift in Sources */,
+				19CBC911A78D21364410D414 /* HelperProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		45FF34D97519B39A94CCC871 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ModafinilHelper;
+			target = 2DCE6382540604C4917B58DB /* ModafinilHelper */;
+			targetProxy = E335FA2D64EF6B45F5D9C194 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		D6D1047916241AE6BD384C4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = DX295NS6CV;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				OTHER_CODE_SIGN_FLAGS = "$(inherited) --timestamp --identifier com.gigaptera.modafinil.helper";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gigaptera.modafinil.helper;
+				PRODUCT_MODULE_NAME = ModafinilHelper;
+				PRODUCT_NAME = com.gigaptera.modafinil.helper;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		E7DF20496F4F048FB4C0E798 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = DX295NS6CV;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				OTHER_CODE_SIGN_FLAGS = "$(inherited) --timestamp --identifier com.gigaptera.modafinil.helper";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gigaptera.modafinil.helper;
+				PRODUCT_MODULE_NAME = ModafinilHelper;
+				PRODUCT_NAME = com.gigaptera.modafinil.helper;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
 		F1000002 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -162,6 +342,7 @@
 				INFOPLIST_FILE = Modafinil/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
+				OTHER_CODE_SIGN_FLAGS = "$(inherited) --timestamp";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gigaptera.modafinil;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -187,6 +368,7 @@
 				INFOPLIST_FILE = Modafinil/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
+				OTHER_CODE_SIGN_FLAGS = "$(inherited) --timestamp";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gigaptera.modafinil;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -311,6 +493,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		937CB4EF4BD0DE84223BFFCF /* Build configuration list for PBXNativeTarget "ModafinilHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7DF20496F4F048FB4C0E798 /* Release */,
+				D6D1047916241AE6BD384C4E /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F1000001 /* Build configuration list for PBXNativeTarget "Modafinil" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -17,6 +17,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         button.sendAction(on: [.leftMouseUp, .rightMouseUp])
         button.target = self
 
+        HelperManager.shared.cleanUpOnLaunch()
         observeActive()
     }
 
@@ -31,6 +32,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func showMenu(_ sender: NSStatusBarButton) {
+        // Helper approval is async with no completion callback, so the helper can become
+        // enabled after prevention is already on, leaving SleepDisabled unset. Reconcile the
+        // flag to the current prevention state on every menu open (no-op while not enabled).
+        HelperManager.shared.setDisableSleep(preventer.isActive)
+
         let menu = NSMenu()
 
         if preventer.isActive {
@@ -57,6 +63,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         menu.addItem(.separator())
+        menu.addItem(lidModeItem())
+
+        menu.addItem(.separator())
 
         let loginItem = NSMenuItem(title: L.string("launch_at_login"), action: #selector(toggleLogin), keyEquivalent: "")
         loginItem.state = SMAppService.mainApp.status == .enabled ? .on : .off
@@ -66,6 +75,30 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(NSMenuItem(title: L.string("quit"), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
 
         menu.popUp(positioning: nil, at: NSPoint(x: 0, y: sender.bounds.height + 4), in: sender)
+    }
+
+    private func lidModeItem() -> NSMenuItem {
+        switch HelperManager.shared.status {
+        case .enabled:
+            let item = NSMenuItem(title: L.string("lid_on"), action: #selector(disableLidMode), keyEquivalent: "")
+            item.state = .on
+            return item
+        case .requiresApproval:
+            return NSMenuItem(title: L.string("lid_approve"), action: #selector(enableLidMode), keyEquivalent: "")
+        default:
+            return NSMenuItem(title: L.string("lid_enable"), action: #selector(enableLidMode), keyEquivalent: "")
+        }
+    }
+
+    @objc private func enableLidMode() {
+        if HelperManager.shared.register() == .enabled, preventer.isActive {
+            HelperManager.shared.setDisableSleep(true)
+        }
+    }
+
+    @objc private func disableLidMode() {
+        HelperManager.shared.setDisableSleep(false)
+        HelperManager.shared.unregister()
     }
 
     @objc private func stop() { preventer.deactivate() }
@@ -95,7 +128,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem?.button?.image = preventer.isActive ? .pillOn : .pillOff
     }
 
-    // Ensure caffeinate + assertions are released if user quits while active
+    // Ensure assertions are released and disablesleep reverted if user quits while active
     func applicationWillTerminate(_ notification: Notification) {
         if preventer.isActive {
             preventer.deactivate()

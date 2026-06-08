@@ -30,6 +30,10 @@ enum L {
         "remaining_m": "%d min left",
         "remaining_hm": "%dh %dm left",
 
+        "lid_enable": "Keep awake with lid closed…",
+        "lid_approve": "Approve helper in Settings…",
+        "lid_on": "Awake with lid closed",
+
         "launch_at_login": "Launch at login",
         "quit": "Quit Modafinil",
     ]
@@ -44,6 +48,10 @@ enum L {
         "stop": "停止",
         "remaining_m": "残り %d 分",
         "remaining_hm": "残り %d時間%d分",
+
+        "lid_enable": "フタを閉じても継続…",
+        "lid_approve": "設定でヘルパーを承認…",
+        "lid_on": "フタを閉じても継続",
 
         "launch_at_login": "ログイン時に起動",
         "quit": "Modafinil を終了",
@@ -85,7 +93,6 @@ final class SleepPreventer {
     private var idleAssertionID: IOPMAssertionID = 0
     private var displayAssertionID: IOPMAssertionID = 0   // for preventing display sleep / auto-lock
     private var timer: Timer?
-    private var caffeinateTask: Process?
 
     var remainingTime: TimeInterval? {
         guard isActive, let fireDate = timer?.fireDate else { return nil }
@@ -126,35 +133,14 @@ final class SleepPreventer {
 
         isActive = true
 
-        startCaffeinate(duration: duration)
+        // Lid-closed (clamshell) sleep is only prevented by `pmset disablesleep`, which needs
+        // root — delegated to the privileged helper. No-op if the helper isn't enabled yet.
+        HelperManager.shared.setDisableSleep(true)
 
         if let d = duration {
             timer = Timer.scheduledTimer(withTimeInterval: d, repeats: false) { [weak self] _ in
                 self?.deactivate()
             }
-        }
-    }
-
-    private func startCaffeinate(duration: TimeInterval?) {
-        guard caffeinateTask == nil else { return }
-
-        // caffeinate helps with lid-closed single MacBook (no external display) cases.
-        // We include "-d" (prevent display sleep) intentionally so the display sleep timer (which often triggers screen lock)
-        // does not fire. This matches the goal of "keep running with lid closed and no lock prompt on open".
-        // -i: prevent idle sleep, -s: prevent system sleep, -u: declare user active.
-        let task = Process()
-        task.executableURL = URL(fileURLWithPath: "/usr/bin/caffeinate")
-        var args = ["-d", "-i", "-s", "-u"]
-        if let d = duration {
-            args += ["-t", String(Int(d))]
-        }
-        task.arguments = args
-
-        do {
-            try task.run()
-            caffeinateTask = task
-        } catch {
-            // caffeinate start failed; assertions may still provide partial prevention
         }
     }
 
@@ -175,12 +161,7 @@ final class SleepPreventer {
             displayAssertionID = 0
         }
 
-        if let task = caffeinateTask {
-            if task.isRunning {
-                task.terminate()
-            }
-            caffeinateTask = nil
-        }
+        HelperManager.shared.setDisableSleep(false)
 
         isActive = false
     }

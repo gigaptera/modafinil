@@ -14,7 +14,7 @@ set -e
 
 MODE="personal"
 SIGNING_IDENTITY=""
-VERSION="1.2.0"
+VERSION="1.2.1"
 APP_NAME="Modafinil"
 DMG_NAME="${APP_NAME}-${VERSION}.dmg"
 
@@ -61,7 +61,6 @@ if [[ "$MODE" == "production" ]]; then
     CODE_SIGN_STYLE=Manual \
     DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" \
     CODE_SIGN_INJECT_BASE_ENTITLEMENTS=NO \
-    OTHER_CODE_SIGN_FLAGS="--timestamp" \
     CODE_SIGNING_REQUIRED=YES \
     CODE_SIGNING_ALLOWED=YES
 
